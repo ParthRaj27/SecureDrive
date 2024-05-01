@@ -1,0 +1,73 @@
+<!-- main/templates/main/drive.html -->
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title%}Drive{% endblock title%}
+{% block content %}
+    <!-- File Upload Form -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="addbtn">
+            Upload File
+            <img src="{% static 'main/images/add_button.png' %}" class="img" style="height: 50px; width: 50px;" />
+        </button>
+        {{ form }}
+    </form>
+
+    <!-- Display Uploaded Files -->
+    <h2>FILES ADDED</h2>
+    
+    <table class="items-table">
+        <thead>
+            <tr class="items-table-row">
+                <th>SERIAL NO.</th>
+                <th>FILE NAME</th>
+                <th>Type</th>
+                <th>UPLOADED ON</th>
+                <th>FILE SIZE</th>
+                <th>DELETE</th> <!-- New column for the delete button -->
+                <th>View</th> <!-- New column for the delete button -->
+            </tr>
+        </thead>
+        <tbody>
+            {% if files %}
+                {% for file in files %}
+                    <tr class="items-table-row">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ file.file.name }}</td>
+                        <td>{{ file.file_type|default:"application/octet-stream" }}</td>
+                        <td>{{ file.upload_date }}</td>
+                        <td>{{ file.file_size|filesizeformat }}</td>
+                        <td>
+                            <button onclick="confirmation('{{ file.id }}')" class="delbtn" style="border-left: 1px solid royalblue">
+                                <img src="{% static 'main/images/delete_button.png' %}" />
+                            </button>
+                        </td>
+                        <td>
+                            <a href="{% url 'view_file' file.id %}" target="_blank">
+                                <button class="viewbtn" style="border-left: 1px solid royalblue">
+                                    <img src="{% static 'main/images/view_button.jpg' %}" />
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr class="items-table-row">
+                    <td colspan="7" style="text-align: center;">Sorry, no files available. 😞</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    
+    <script>
+        function confirmation(fileId) {
+            // Use the confirm dialog
+            var result = confirm("Are you sure you want to delete the file?");
+            
+            // If the user clicks OK, perform the action
+            if (result) {
+                window.location.href = `{% url 'delete_file' file_id=0 %}`.replace('0', fileId);
+            }
+        }
+    </script>
+{% endblock %}

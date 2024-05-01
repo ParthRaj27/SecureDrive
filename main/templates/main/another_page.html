@@ -1,0 +1,14 @@
+<!-- main/templates/main/welcome.html -->
+{% extends 'main/base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome, {{ user.username }}!</h1>
+        <p class="lead">We're glad to have you on board.</p>
+        <p>Your login was successful, and your private data is now securely stored in your drive.</p>
+        <p>We'll keep it safe and sound. Your secrets are safe with us!</p>
+        <!-- Add any additional welcome content here -->
+    </div>
+{% endblock %}

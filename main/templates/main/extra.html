@@ -1,0 +1,42 @@
+<!-- main/templates/main/login_signup.html -->
+{% extends 'main/base.html' %}
+
+{% block title %}Login/Signup{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Login</h2>
+                <form method="post" action="{% url 'login_signup' %}">
+                    {% csrf_token %}
+                    {{ login_form.as_p }}
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                {% if request.method == 'POST' and not login_form.is_valid %}
+                    <div class="alert alert-danger mt-3" role="alert">
+                        Invalid login credentials. Please try again.
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h2>Signup</h2>
+                <form method="post" action="{% url 'login_signup' %}">
+                    {% csrf_token %}
+                    {{ signup_form.as_p }}
+                    <button type="submit" class="btn btn-success">Signup</button>
+                </form>
+                {% if request.method == 'POST' and not signup_form.is_valid %}
+                    <div class="alert alert-danger mt-3" role="alert">
+                        Error during signup. Please check your input.
+                    </div>
+                {% endif %}
+                {% if request.method == 'POST' and signup_form.is_valid %}
+                    <div class="alert alert-success mt-3" role="alert">
+                        Signup successful. You can now login.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

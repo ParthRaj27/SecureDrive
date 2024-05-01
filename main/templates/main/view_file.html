@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+
+{% block title %}File View{% endblock %}
+
+{% block content %}
+    <h2>File View</h2>
+
+    <p>File Name: {{ file_instance.file.name }}</p>
+    <p>File Type: {{ file_instance.file.content_type }}</p>
+    <p>File Size: {{ file_instance.file.size|filesizeformat }}</p>
+
+    <!-- Add more details or display the file content here -->
+{% endblock %}

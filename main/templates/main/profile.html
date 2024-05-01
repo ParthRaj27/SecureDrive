@@ -1,0 +1,49 @@
+<!-- main/templates/main/profile.html -->
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Profile Page{% endblock %}
+
+{% block content %}
+<div class="userprofile text-center">
+    <br><br><br><br><br><br>
+    <h3 class="margin">{{user.first_name}} {{user.last_name}}</h3>
+    <div class="profile-pic-div">
+      <img src="{% static 'main/images/profile.jpg' %}" id="photo">
+    <!-- Display profile picture -->
+    <!-- {% if user.profile.profile_picture %} -->
+    <!-- <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle" style="max-width: 100px; max-height: 100px;"> -->
+<!-- {% endif %} -->
+    <!-- </div> -->
+    <div>
+    <!-- Profile picture upload form -->
+    <!-- {% if not user.profile.userprofile.profile_picture %}
+    
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ profile_form.as_p }}
+            <button type="submit">Upload Profile Picture</button>
+        </form>
+    {% endif %} -->
+</div>
+</div>
+<!-- <label for="file" id="uploadBtn"></label> -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!-- </div> -->
+<h3>
+    USERNAME<br />
+    {{user.username}}
+  </h3>
+</div>
+<div class="aboutuser bg-2 text-center">
+    <table class="content" border="2px">
+        <tr>
+            <th>Files Stored :</th>
+            <th> {{ files_count }} </th>
+      
+          </tr>
+          <tr>
+            <th>Storage Used :</th>
+            <th> {{ total_size|filesizeformat }} </th>
+          </tr>
+        </table>
+{% endblock %}
